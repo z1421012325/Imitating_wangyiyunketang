@@ -2,6 +2,8 @@ package main
 
 import (
 	_ "demos/conf"
+	_ "demos/DB"
+
 	"fmt"
 	"os"
 
@@ -15,6 +17,6 @@ func main(){
 	fmt.Println(os.Getenv("MYSQL_HOST"))
 
 	server := server.NewRouter()
-	server.Run(os.Getenv("SERVER_PORT"))
+	_ = server.Run(os.Getenv("SERVER_PORT"))
 
 }
