@@ -3,7 +3,7 @@ package server
 import (
 	_ "demos/conf"
 	_ "demos/DB"
-
+	"demos/middleware"
 
 	"github.com/gin-gonic/gin"
 )
@@ -20,7 +20,9 @@ func NewRouter() *gin.Engine{
 	})
 
 	// 中间件
-	server.Use()
+
+	server.Use(middleware.Cors())
+
 
 	// 版本迭代
 	v1 := server.Group("/api/v1")
