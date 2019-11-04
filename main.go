@@ -16,5 +16,4 @@ func main(){
 	server := server.NewRouter()
 	_ = server.Run(os.Getenv("SERVER_PORT"))
 
-
 }
