@@ -21,14 +21,10 @@ func NewRouter() *gin.Engine{
 	})
 
 
-
-
-
-
-	// 中间件
+	// 中间件 跨域最前,session,auth
 	server.Use(middleware.Cors())
 	server.Use(middleware.Session())
-	//server.Use()
+	server.Use(middleware.Auth())
 
 
 
