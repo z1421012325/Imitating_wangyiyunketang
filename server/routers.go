@@ -4,9 +4,12 @@ import (
 	_ "demos/DB"
 	_ "demos/conf"
 
-	"demos/middleware"
 
 	"github.com/gin-gonic/gin"
+
+	"demos/middleware"
+	v1post "demos/api/v1/post"
+
 )
 
 
@@ -33,8 +36,10 @@ func NewRouter() *gin.Engine{
 	// 版本迭代
 	v1 := server.Group("/api/v1")
 	{
-		v1.GET("")
+		// 用户注册
+		v1.POST("registry/user",v1post.RegistryUser)
 
+		// 用户登录
 	}
 
 
