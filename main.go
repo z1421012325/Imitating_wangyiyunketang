@@ -1,9 +1,6 @@
 package main
 
 import (
-	_ "demos/conf"
-	_ "demos/DB"
-
 	"fmt"
 	"os"
 
@@ -18,5 +15,6 @@ func main(){
 
 	server := server.NewRouter()
 	_ = server.Run(os.Getenv("SERVER_PORT"))
+
 
 }

@@ -2,12 +2,14 @@ package DB
 
 import (
 	"fmt"
+	"os"
+	"time"
+
 	"github.com/gin-gonic/gin"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	"gorm"
-	"os"
 	"redigo/redis"
-	"time"
+
 )
 
 
@@ -18,7 +20,6 @@ var (
 
 
 func init(){
-
 	name := os.Getenv("MYSQL_NAME")
 	pswd := os.Getenv("MYSQL_PASSWORD")
 	host := os.Getenv("MYSQL_HOST")
@@ -41,18 +42,33 @@ func init(){
 
 	// 设置可重用连接的最大时间量 如果d<=0，则永远重用连接
 	db.DB().SetConnMaxLifetime(time.Second * 30)
-
 	//设置到数据库的最大打开连接数 如果n<=0，则不限制打开的连接数 默认值为0
 	db.DB().SetMaxOpenConns(0)
-
 	// 设置空闲中的最大连接数 默认最大空闲连接数当前为2 如果n<=0，则不保留空闲连接
 	db.DB().SetMaxIdleConns(10)
-
 	DB = db
 
 
 
 
+	rd := &redis.Pool{
+				Dial: func() (conn redis.Conn, e error) {
+					return redis.Dial("tcp",os.Getenv("REDIS_ADDR"))
+				},
+
+				// 最大空闲
+				MaxIdle:         10,
+				//当为零时，池中的连接数没有限制。
+				MaxActive:       0,
+				// 超时时间
+				IdleTimeout:     5 * time.Second,
+				// 当超过最大连接数时直接返回错误 默认false
+				Wait:            false,
+				// 最大等待时间 默认为0 无限制
+				MaxConnLifetime: 0,
+			}
+
+	RB = rd
 }
 
 
