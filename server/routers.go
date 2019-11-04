@@ -19,9 +19,9 @@ func NewRouter() *gin.Engine{
 	server.Use()
 
 	// 版本迭代
-	_ = server.Group("/api/v1")
+	v1 := server.Group("/api/v1")
 	{
-
+		v1.GET("")
 
 	}
 
