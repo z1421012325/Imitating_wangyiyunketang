@@ -3,6 +3,8 @@ package main
 import (
 	"os"
 
+	_"demos/conf"
+
 	"demos/server"
 )
 

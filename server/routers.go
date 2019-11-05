@@ -1,9 +1,8 @@
 package server
 
 import (
-	_ "demos/DB"
 	_ "demos/conf"
-
+	_ "demos/DB"
 
 	"github.com/gin-gonic/gin"
 
