@@ -39,7 +39,6 @@ func (u *User)TableName()string{
 }
 
 
-
 const (
 	// PassWordCost 密码加密难度
 	PassWordCost = 12
