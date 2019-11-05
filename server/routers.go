@@ -37,8 +37,8 @@ func NewRouter() *gin.Engine{
 	{
 		// 用户注册
 		v1.POST("registry/user",v1post.RegistryUser)
-
 		// 用户登录
+		v1.POST("login",v1post.RegistryUser)
 	}
 
 

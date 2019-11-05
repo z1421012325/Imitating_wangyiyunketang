@@ -15,6 +15,6 @@ func RegistryUser(c *gin.Context){
 	}
 
 	res := service.Register()
-	c.JSON(200,res)
+	c.JSON(201,res)
 
 }
