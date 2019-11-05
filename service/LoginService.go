@@ -28,7 +28,10 @@ func (service *LoginService)Login (c *gin.Context) *serialize.Response{
 
 
 	service.SetSession(c,user)
-	return serialize.Res("","登录成功")
+	return &serialize.Response{
+		Msg:  "登录成功",
+		Data: &user,
+	}
 
 }
 
