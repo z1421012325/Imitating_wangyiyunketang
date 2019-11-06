@@ -38,9 +38,13 @@ func NewRouter() *gin.Engine{
 		// 课程页面
 		v1.GET("course/introduction/:cid",v1get.Introduction)
 		// 课程目录
-		v1.GET("course/coursedetail/:cid",v1get.Coursedetail)
-
+		v1.GET("course/coursedetail/:cid",v1get.CourseDetail)
+		// 课程评论
+		v1.GET("course/comment/:cid",v1get.Comment)
 		// 中间件,保护登录
+
+
+
 		v1.Use(middleware.AuthLogin())
 		{
 			// 退出

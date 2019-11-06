@@ -23,7 +23,7 @@ type CurriculumComment struct {
 	Number     int       `gorm:"column:number" json:"number"`
 	Comment    string    `gorm:"column:comment" json:"comment"`
 	CreateTime time.Time `gorm:"column:create_at" json:"at"`
-	DeleteTime time.Time `gorm:"column:delete_at" json:"et"`
+	DeleteTime time.Time `gorm:"column:delete_at" json:"-"`
 }
 
 
