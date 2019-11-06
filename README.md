@@ -13,6 +13,7 @@ https://study.163.com/course/introduction.htm?courseId=1209318815&_trace_c_p_k2_
 
 # 修改
 1.用户表只添加学生用户和老师用户,管理员表另外添加
+2.添加老师所属机构?
 
 
 

@@ -27,7 +27,6 @@ func NewRouter() *gin.Engine{
 	Router.Use(middleware.Auth())
 
 
-	
 	// 版本迭代
 	v1 := Router.Group("/api/v1")
 	{
@@ -41,10 +40,14 @@ func NewRouter() *gin.Engine{
 		v1.GET("course/coursedetail/:cid",v1get.CourseDetail)
 		// 课程评论
 		v1.GET("course/comment/:cid",v1get.Comment)
+		// 展示所含有的老师
+		v1.GET("instructor/all",v1get.AllInstructorInfo)
+		// 所有人都能看到的老师信息
+		//v1.GET("instructor/:uid",v1get.InstructorInfo)
+
+
+
 		// 中间件,保护登录
-
-
-
 		v1.Use(middleware.AuthLogin())
 		{
 			// 退出

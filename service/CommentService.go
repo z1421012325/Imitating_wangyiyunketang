@@ -5,7 +5,6 @@ import (
 	"demos/model"
 	"demos/serialize"
 	"github.com/gin-gonic/gin"
-	"strconv"
 )
 
 
@@ -17,7 +16,7 @@ type CurriculumCommentData struct {
 func CommentService(c *gin.Context) *serialize.Response{
 
 	cid := c.Param("cid")  // 102
-	start,end := analysisQuery(c)
+	start,end := pagingQuery(c)
 
 	var cms CurriculumCommentData
 	sql := "select " +
@@ -37,26 +36,3 @@ func CommentService(c *gin.Context) *serialize.Response{
 }
 
 
-func analysisQuery(c *gin.Context)(start,end int){
-	var err error
-	undetermined1 := c.DefaultQuery("page","0")
-	undetermined2 := c.DefaultQuery("size","20")
-
-	page,err := strconv.Atoi(undetermined1)
-	if err != nil {
-		page = 0
-	}
-
-	size ,err := strconv.Atoi(undetermined2)
-	if err != nil {
-		size = 20
-	}else if size >= 50 {
-		size = 30
-	}
-
-	start = page*size
-	end   = page*size+size
-
-	return start,end
-
-}
