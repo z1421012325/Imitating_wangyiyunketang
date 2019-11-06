@@ -55,7 +55,26 @@ func AuthLogin() gin.HandlerFunc{
 		if user != nil{
 			if _, ok := user.(*model.User); ok {
 				c.Next()
-				return
+				// return
+			}
+		}
+
+		c.JSON(200, serialize.CheckLogin())
+		c.Abort()
+	}
+}
+
+
+func AuthAdminLogin() gin.HandlerFunc{
+
+	return func(c *gin.Context) {
+		s := sessions.Default(c)
+
+		user := s.Get("admin")
+		if user != nil{
+			if _, ok := user.(*model.User); ok {
+				c.Next()
+				// return
 			}
 		}
 

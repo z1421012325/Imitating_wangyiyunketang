@@ -1,14 +1,13 @@
 package server
 
 import (
-	_ "demos/conf"
 	_ "demos/DB"
+	_ "demos/conf"
 
 	"github.com/gin-gonic/gin"
 
-	"demos/middleware"
 	v1post "demos/api/v1/post"
-
+	"demos/middleware"
 )
 
 

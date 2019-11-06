@@ -12,6 +12,7 @@ func RegistryUser(c *gin.Context){
 	var service service.RegistryUserService
 	if err := c.ShouldBind(&service);err != nil{
 		c.JSON(200,serialize.ParamErr("",err))
+		return
 	}
 
 	res := service.Register()

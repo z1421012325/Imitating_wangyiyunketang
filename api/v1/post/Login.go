@@ -10,6 +10,7 @@ func Login(c* gin.Context) {
 	var service service2.LoginService
 	if err := c.ShouldBind(&service);err != nil{
 		c.JSON(200,serialize.ParamErr("",err))
+		return
 	}
 
 	res := service.Login(c)
