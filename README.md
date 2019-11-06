@@ -39,7 +39,16 @@ Create table users (
 foreign key (r_id) references roles(r_id)   // 有问题外键加不上
 )ENGINE=InnoDB AUTO_INCREMENT=100000 DEFAULT CHARSET=utf8;
 
-
+admin
+create table admins (
+`aid` tinyint primary key auto_increment comment '管理员id',
+`username` char(20) not null comment '账号',
+`pswd` varchar(255) not null comment '密码',
+`status` tinyint default '0' comment '身份信息',
+`info` text comment '一些额外的信息',
+`create_at` datetime default current_timestamp,
+UNIQUE KEY `username` (`username`))
+ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
 
 Create table money (
 `u_id` bigint unique comment '外键用户表id,唯一',

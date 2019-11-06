@@ -40,12 +40,13 @@ func (service *RegistryUserService) Register() *serialize.Response{
 
 	DB.DB.Where("username = ?",service.Username).First(&user)
 
-	res := serialize.Response{
-		Code:  0,
-		Msg:   "注册成功",
-		Data:  &user,
-	}
-	return &res
+	//res := serialize.Response{
+	//	Code:  0,
+	//	Msg:   "注册成功",
+	//	Data:  &user,
+	//}
+	res := serialize.Res(user,"注册成功")
+	return res
 
 }
 

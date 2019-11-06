@@ -2,10 +2,10 @@ package server
 
 import (
 	_ "demos/DB"
-	_ "demos/conf"
 
 	"github.com/gin-gonic/gin"
 
+	v1get "demos/api/v1/get"
 	v1post "demos/api/v1/post"
 	"demos/middleware"
 )
@@ -35,7 +35,8 @@ func NewRouter() *gin.Engine{
 		v1.POST("registry/user",v1post.RegistryUser)
 		// 用户登录
 		v1.POST("login",v1post.Login)
-
+		// 课程页面
+		v1.GET("course/introduction/:cid",v1get.Introduction)
 
 		// 中间件,保护登录
 		v1.Use(middleware.AuthLogin())

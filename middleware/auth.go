@@ -72,7 +72,7 @@ func AuthAdminLogin() gin.HandlerFunc{
 
 		user := s.Get("admin")
 		if user != nil{
-			if _, ok := user.(*model.User); ok {
+			if _, ok := user.(*model.Admin); ok {
 				c.Next()
 				// return
 			}

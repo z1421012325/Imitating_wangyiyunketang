@@ -6,6 +6,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
+// 登录
 func Login(c* gin.Context) {
 	var service service2.LoginService
 	if err := c.ShouldBind(&service);err != nil{
