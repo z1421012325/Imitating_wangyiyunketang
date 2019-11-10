@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InstructorInfo(c *gin.Context){
-	res := service.InstructorInfoService(c)
+func NowCurriculum(c *gin.Context){
+	res := service.NowCurriculumService(c)
 	c.JSON(200,res)
 }

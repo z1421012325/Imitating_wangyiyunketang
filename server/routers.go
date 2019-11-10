@@ -42,8 +42,11 @@ func NewRouter() *gin.Engine{
 		v1.GET("course/comment/:cid",v1get.Comment)
 		// 展示所含有的老师
 		v1.GET("instructor/all",v1get.AllInstructorInfo)
-		// 所有人都能看到的老师信息
-		//v1.GET("instructor/:uid",v1get.InstructorInfo)
+
+		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)
+		v1.GET("instructorinfo/:uid",v1get.InstructorInfo)
+		// 正在教学课程
+		v1.GET("curriculum/now/:uid",v1get.NowCurriculum)
 
 
 
