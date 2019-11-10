@@ -46,7 +46,8 @@ func NewRouter() *gin.Engine{
 		v1.GET("instructor/all",v1get.AllInstructorInfo)
 		// 课程目录
 		v1.GET("catalog/:cid",v1get.Catalog)
-
+		// 开始学习,要对是否登录用户检测,或者课程价格为0or不为0检测(是否购买检测)
+		v1.GET("course/standard/:cid",v1get.Standard)
 
 
 		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)

@@ -1,6 +1,8 @@
 package service
 
 import (
+	"demos/model"
+	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
 	"strconv"
 )
@@ -27,3 +29,22 @@ func pagingQuery(c *gin.Context)(start,end int){
 
 	return start,end
 }
+
+
+
+func VerifyUser(c *gin.Context)(model.User,bool){
+	s := sessions.Default(c)
+	user := s.Get("user")
+	if user != nil{
+		if chechuser, ok := user.(*model.User); ok {
+			return *chechuser,true
+		}
+	}
+	return model.User{},false
+}
+
+
+
+
+
+
