@@ -37,7 +37,7 @@ func NewRouter() *gin.Engine{
 
 
 		// 课程页面
-		v1.GET("course/introduction/:cid",v1get.Introduction)
+		v1.GET("course/introduction/:cid",v1get.Introduction)		// todo tag 添加
 		// 课程目录
 		v1.GET("course/coursedetail/:cid",v1get.CourseDetail)
 		// 课程评论
@@ -48,6 +48,9 @@ func NewRouter() *gin.Engine{
 		v1.GET("catalog/:cid",v1get.Catalog)
 		// 开始学习,要对是否登录用户检测,或者课程价格为0or不为0检测(是否购买检测)
 		v1.GET("course/standard/:cid",v1get.Standard)
+		// 课程推荐(老师本人还是根据标签推荐有前端决定,后端输出 degree)
+		v1.GET("recommend/:cid",v1get.Recommend)
+
 
 
 		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)
