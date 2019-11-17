@@ -23,7 +23,7 @@ curriculums | CREATE TABLE `curriculums` (
 type Curriculums struct {
 	CID 		int			`gorm:"column:c_id" json:"cid"`
 	UID 		int			`gorm:"column:u_id" json:"uid"`
-	TID 		int			`gorm:"column:t_id" json:"tid"`
+	//TID 		int			`gorm:"column:t_id" json:"tid"`
 	Name 		string		`gorm:"column:c_name" json:"name"`
 	Price 		float64		`gorm:"column:price" json:"price"`
 	Info		string		`gorm:"column:info" json:"info"`

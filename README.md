@@ -13,8 +13,13 @@ https://study.163.com/course/introduction.htm?courseId=1209318815&_trace_c_p_k2_
 
 # 修改
 1.用户表只添加学生用户和老师用户,管理员表另外添加
+
 2.添加老师所属机构?
 
+3.删除课程表中t_id字段,使用第三方表存储课程所有tag
+```mysql
+alter table curriculums drop column t_id
+```
 
 
 #mysql语句

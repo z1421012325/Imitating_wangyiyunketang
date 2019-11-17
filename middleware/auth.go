@@ -55,7 +55,7 @@ func AuthLogin() gin.HandlerFunc{
 		if user != nil{
 			if _, ok := user.(*model.User); ok {
 				c.Next()
-				// return
+				return
 			}
 		}
 

@@ -52,6 +52,28 @@ func NewRouter() *gin.Engine{
 		v1.GET("recommend/:cid",v1get.Recommend)
 
 
+		// search 搜索
+		v1.GET("search",v1get.Search)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)
 		v1.GET("instructorinfo/:uid",v1get.InstructorInfo)
@@ -60,9 +82,8 @@ func NewRouter() *gin.Engine{
 
 
 
-		// 中间件,保护登录
-		v1.Use(middleware.AuthLogin())
-		{
+		{// 中间件,保护登录
+			v1.Use(middleware.AuthLogin())
 			// 退出
 			v1.POST("logout",v1post.Logout)
 		}
