@@ -16,7 +16,7 @@ type CurriculumCommentData struct {
 func CommentService(c *gin.Context) *serialize.Response{
 
 	cid := c.Param("cid")  // 102
-	start,end := pagingQuery(c)
+	start,num := pagingQuery(c)
 
 	var cms CurriculumCommentData
 	sql := "select " +
@@ -29,7 +29,8 @@ func CommentService(c *gin.Context) *serialize.Response{
 				"u.u_id = cm.u_id " +
 			"where " +
 				"cm.c_id = ? limit ?,?"
-	DB.DB.Raw(sql,cid,start,end).Scan(&cms.Result)
+
+	DB.DB.Raw(sql,cid,start,num).Scan(&cms.Result)
 	DB.DB.Model(&model.CurriculumComment{}).Where("c_id = ?",cid).Count(&cms.Total)
 
 	return serialize.Res(cms,"")

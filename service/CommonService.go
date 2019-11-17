@@ -25,8 +25,8 @@ func pagingQuery(c *gin.Context)(start,end int){
 	}
 
 	start = page*size
-	end   = page*size+size
-
+	// end   = page*size+size
+	end = size				// 貌似limit时返回 从几个开始的隔开多少个,而不是中间的部分
 	return start,end
 }
 
