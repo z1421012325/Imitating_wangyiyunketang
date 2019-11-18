@@ -99,10 +99,10 @@ func init(){
 		MaxConnAge:         0,
 	})
 
-	_,err = rb.Ping().Result()
-	if err != nil {
-		panic(err)
-	}
+	//_,err = rb.Ping().Result()
+	//if err != nil {
+	//	panic(err)
+	//}
 	RB = rb
 }
 

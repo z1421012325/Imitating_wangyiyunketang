@@ -54,7 +54,8 @@ func NewRouter() *gin.Engine{
 
 		// search 搜索
 		v1.GET("search",v1get.Search)
-
+		// 查询tag
+		v1.GET("search/tag",v1get.SearchTag)
 
 
 
