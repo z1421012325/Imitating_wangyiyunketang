@@ -10,7 +10,6 @@ import (
 type NowCurriculumData struct {
 	Result []struct{
 		model.Curriculums
-		// model.CurriculumComment
 		Avg string 		`grom:"avg" json:"avg"`
 	}
 	Total int

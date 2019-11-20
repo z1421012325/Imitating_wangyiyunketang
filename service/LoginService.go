@@ -26,20 +26,16 @@ func (service *LoginService)Login (c *gin.Context) *serialize.Response{
 		return serialize.AccountErr("",nil)
 	}
 
-	service.SetSession(c,user)
-	//return &serialize.Response{
-	//	Msg:  "登录成功",
-	//	Data: &user,
-	//}
+	service.SetSession(c,&user)
+
 	return serialize.Res(user,"登录成功")
 
 }
 
 
-func (service *LoginService )SetSession(c *gin.Context,user model.User){
+func (service *LoginService)SetSession(c *gin.Context,user *model.User){
 	s := sessions.Default(c)
 	s.Clear()
 	s.Set("user_id",user.ID)
-	// s.Set("query_control",1)
 	_ = s.Save()
 }

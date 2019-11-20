@@ -36,8 +36,15 @@ func VerifyUser(c *gin.Context)(model.User,bool){
 	s := sessions.Default(c)
 	user := s.Get("user")
 	if user != nil{
-		if chechuser, ok := user.(*model.User); ok {
-			return *chechuser,true
+		if chechuser, ok := user.(model.User); ok {
+
+			// 再次验证 user_id 是否存在和相等
+			//uid := s.Get("user_id")
+			//if string(chechuser.ID) == uid {
+			//	return chechuser,true
+			//}
+
+			return chechuser,true
 		}
 	}
 	return model.User{},false
@@ -46,5 +53,7 @@ func VerifyUser(c *gin.Context)(model.User,bool){
 
 
 
-
-
+func GetUserId(c *gin.Context) interface{}{
+	s := sessions.Default(c)
+	return s.Get("user_id")
+}

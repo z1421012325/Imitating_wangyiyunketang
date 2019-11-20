@@ -30,11 +30,6 @@ func NewRouter() *gin.Engine{
 	// 版本迭代
 	v1 := Router.Group("/api/v1")
 	{
-		// 用户注册
-		v1.POST("registry/user",v1post.RegistryUser)
-		// 用户登录
-		v1.POST("login",v1post.Login)
-
 
 		// 课程页面
 		v1.GET("course/introduction/:cid",v1get.Introduction)		// todo tag 添加
@@ -58,33 +53,22 @@ func NewRouter() *gin.Engine{
 		v1.GET("search/tag",v1get.SearchTag)
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)
 		v1.GET("instructorinfo/:uid",v1get.InstructorInfo)
-		// 正在教学课程
+		// 该老师正在教学课程
 		v1.GET("curriculum/now/:uid",v1get.NowShowlist)
 
+
+		// 用户注册
+		v1.POST("registry/user",v1post.RegistryUser)
+		// 用户登录
+		v1.POST("login",v1post.Login)
 
 
 		{// 中间件,保护登录
 			v1.Use(middleware.AuthLogin())
+			// 查看学习的视频
+			v1.GET("show/study",v1get.ShowStudy)
 			// 退出
 			v1.POST("logout",v1post.Logout)
 		}
