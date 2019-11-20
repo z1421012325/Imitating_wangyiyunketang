@@ -3,11 +3,11 @@ package server
 import (
 	_ "demos/DB"
 
-	"github.com/gin-gonic/gin"
-
 	v1get "demos/api/v1/get"
 	v1post "demos/api/v1/post"
 	"demos/middleware"
+
+	"github.com/gin-gonic/gin"
 )
 
 
@@ -69,6 +69,11 @@ func NewRouter() *gin.Engine{
 			v1.Use(middleware.AuthLogin())
 			// 查看学习的视频
 			v1.GET("show/study",v1get.ShowStudy)
+			// 查看个人私密信息
+			v1.GET("user/me",v1get.UserMe)
+
+
+
 			// 退出
 			v1.POST("logout",v1post.Logout)
 		}
