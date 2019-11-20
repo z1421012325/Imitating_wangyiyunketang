@@ -7,12 +7,12 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func InstructorInfoService(c *gin.Context) *serialize.Response {
+func StudentService(c *gin.Context) *serialize.Response {
 	uid := c.Param("uid")
-	var user model.User
 
+	var user model.User
 	DB.DB.Select("u_id,nickename,r_id,portrait,create_at").
-		Where("u_id = ? and r_id = ?",uid,model.Teacher).
+		Where("u_id = ? and r_id = ?",uid,model.Student).
 		First(&user)
 
 	return serialize.Res(user,"")

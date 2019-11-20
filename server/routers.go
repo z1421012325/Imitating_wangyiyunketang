@@ -53,6 +53,8 @@ func NewRouter() *gin.Engine{
 		v1.GET("search/tag",v1get.SearchTag)
 
 
+		// 所有人都能查看到的学生信息
+		v1.GET("student/:uid",v1get.Student)
 		// 所有人都能看到的老师信息(老师介绍页面,能看到所教学的课程,无需登录即可看到)
 		v1.GET("instructorinfo/:uid",v1get.InstructorInfo)
 		// 该老师正在教学课程
@@ -71,8 +73,8 @@ func NewRouter() *gin.Engine{
 			v1.GET("show/study",v1get.ShowStudy)
 			// 查看个人私密信息
 			v1.GET("user/me",v1get.UserMe)
-
-
+			// 上传用户头像
+			// 修改个人信息
 
 			// 退出
 			v1.POST("logout",v1post.Logout)
