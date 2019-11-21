@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Modify(c *gin.Context){
+func ModifyInfo(c *gin.Context){
 	var service service.ModifyService
 	if err := c.ShouldBind(&service);err!=nil{
 		c.JSON(200,serialize.ParamErr("",nil))

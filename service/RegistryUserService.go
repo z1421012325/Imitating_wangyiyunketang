@@ -52,9 +52,6 @@ func (service *RegistryUserService) Register() *serialize.Response{
 
 
 
-
-
-
 func (service *RegistryUserService)Valid() *serialize.Response{
 
 	if service.Password != service.AgainPassword {

@@ -71,11 +71,15 @@ func NewRouter() *gin.Engine{
 			v1.Use(middleware.AuthLogin())
 			// 查看学习的视频
 			v1.GET("show/study",v1get.ShowStudy)
-			// 查看个人私密信息
+			// 查看个人信息
 			v1.GET("user/me",v1get.UserMe)
 			// 修改个人信息 和查看个人信息配合
-			v1.POST("user/modify",v1post.Modify)
+			v1.POST("user/modify/info",v1post.ModifyInfo)
 			// 修改密码
+			v1.POST("user/modify/pswd",v1post.ModifyPswd)
+
+
+
 			// 添加视频收藏
 			// 查看收藏视频
 			// 上传用户头像

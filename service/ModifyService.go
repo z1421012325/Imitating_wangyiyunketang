@@ -22,15 +22,12 @@ func (service *ModifyService)Modify(c *gin.Context) *serialize.Response {
 	var user model.User
 	DB.DB.Where("u_id = ?",uid).First(&user)
 
-	// 开启事务
-	//DB.DB.Model(&user).Where("u_id = ?",uid).
-	//	Update(map[string]interface{}{"nickename":service.Nickename,"status":1})		// 更新多个值 必须使用map(字典)来更新
-
+	// 修改昵称那个接口测试一下 mysql中开启begin,但是不提交,注意接口发出的请求和mysql中开启事务的请求不是同一个,测试是否阻塞
 	ok := DB.Transaction(DB.DB.Model(&user).Where("u_id = ?",uid).
 		Update(map[string]interface{}{"nickename":service.Nickename,"status":1}))
 
 	if !ok{
-		return serialize.Res(nil,"err")
+		return serialize.Res(nil,"fail")
 	}
 	return serialize.Res(nil,"success")
 }
