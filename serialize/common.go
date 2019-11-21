@@ -56,9 +56,6 @@ func Err(errCode int, msg string, err error) *Response {
 
 
 
-
-
-
 // DBErr 数据库操作失败
 func DBErr(msg string, err error) *Response {
 	if msg == "" {

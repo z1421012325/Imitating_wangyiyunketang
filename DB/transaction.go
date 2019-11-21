@@ -1,10 +1,12 @@
 package DB
 
-import "gorm"
+import (
+	"gorm"
+)
 
 
 
-// todo Transection 事务封装?
+//  Transection 事务封装?
 func Transaction(db *gorm.DB)bool{
 
 	tx := DB.Begin()
