@@ -5,6 +5,7 @@ import (
 
 	v1get "demos/api/v1/get"
 	v1post "demos/api/v1/post"
+	v1del "demos/api/v1/delete"
 	"demos/middleware"
 
 	"github.com/gin-gonic/gin"
@@ -77,13 +78,21 @@ func NewRouter() *gin.Engine{
 			// 添加视频收藏
 			v1.POST("add/collection",v1post.AddCollection)
 			// 查看收藏视频
-			v1.GET("show/collection",v1get.ShowCollection)  // now 未完成
+			v1.GET("show/collection",v1get.ShowCollection)
+			// 取消收藏
+
 			// 上传视频
 			// 查看视频信息
 			// 修改视频信息
-			// 删除视频
+
+			// 下架视频
+			v1.DELETE("del/curriculum",v1del.DelCurriculum)
+			// 查看下架的视频
+			// 回复下架视频
+
 			// 查看课程目录中的视频
 			// 增加课程目录中的视频
+
 			// 发表评论
 			// 查看评论
 			// 删除评论
