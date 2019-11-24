@@ -79,7 +79,8 @@ func NewRouter() *gin.Engine{
 			v1.POST("add/collection",v1post.AddCollection)
 			// 查看收藏视频
 			v1.GET("show/collection",v1get.ShowCollection)
-			// 取消收藏
+			// 取消(删除)收藏
+			v1.DELETE("del/collection",v1del.DelCollection)
 
 			// 上传视频
 			// 查看视频信息

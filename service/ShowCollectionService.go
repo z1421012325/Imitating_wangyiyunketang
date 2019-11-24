@@ -9,8 +9,8 @@ import (
 )
 
 type usercoll struct {
-	Total int								`gorm:"column:total" json:"total"`
 	Result []model.Curriculums				`json:"result"`
+	Total int								`gorm:"column:total" json:"total"`
 }
 
 func ShowCollectionService(c *gin.Context)*serialize.Response{
@@ -25,7 +25,7 @@ func ShowCollectionService(c *gin.Context)*serialize.Response{
 			"on " +
 				"cc.c_id = uc.c_id " +
 			"where " +
-				"uc.u_id = ? " +
+				"uc.u_id = ? and uc.delete_at is null " +
 			"order by uc.create_at " +
 				"limit ?,?"
 

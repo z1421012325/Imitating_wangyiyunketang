@@ -6,14 +6,13 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-
-
-func DelCurriculum(c *gin.Context){
-	var service service.DelCurriculumService
-	if err := c.ShouldBind(&service);err != nil{
+func DelCollection(c *gin.Context){
+	var service service.DelCollectionService
+	if err := c.ShouldBind(&service); err != nil{
 		c.JSON(200,serialize.ParamErr("",err))
 		return
 	}
-	res := service.DelCurriculum(c)
+	res := service.DelCollection(c)
 	c.JSON(200,res)
+
 }

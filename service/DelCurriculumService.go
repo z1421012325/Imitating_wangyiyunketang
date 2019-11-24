@@ -22,5 +22,5 @@ func (service *DelCurriculumService)DelCurriculum(c *gin.Context)*serialize.Resp
 	}
 
 	fmt.Println(uid,service.CID,sql)
-	return serialize.Res(nil,"del success")
+	return serialize.Res(nil,"del curriculum success")
 }

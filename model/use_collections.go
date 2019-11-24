@@ -17,6 +17,7 @@ type UseCollections struct {
 	UID 		int 		`gorm:"column:u_id"`
 	CID 		int 		`gorm:"column:c_id"`
 	Create_At 	time.Time	`gorm:"column:create_at"`
+	Delete_At   time.Time   `gorm:"column:delete_at"`
 }
 
 func (uc *UseCollections)TableName()string{
