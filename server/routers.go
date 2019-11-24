@@ -15,11 +15,7 @@ func NewRouter() *gin.Engine{
 	Router := gin.Default()
 
 	// 心跳检测
-	Router.GET("ping",func (c *gin.Context){
-		c.JSON(200,gin.H{
-			"msg":"ping",
-		})
-	})
+	Router.GET("ping",v1get.Ping)
 
 	// 中间件 跨域最前,session,auth
 	Router.Use(middleware.Cors())
@@ -32,7 +28,7 @@ func NewRouter() *gin.Engine{
 	{
 
 		// 课程页面
-		v1.GET("course/introduction/:cid",v1get.Introduction)		// todo tag 添加
+		v1.GET("course/introduction/:cid",v1get.Introduction)
 		// 课程目录
 		v1.GET("course/coursedetail/:cid",v1get.CourseDetail)
 		// 课程评论
@@ -78,10 +74,29 @@ func NewRouter() *gin.Engine{
 			// 修改密码
 			v1.POST("user/modify/pswd",v1post.ModifyPswd)
 
-
-
 			// 添加视频收藏
+			v1.POST("add/collection",v1post.AddCollection)
 			// 查看收藏视频
+			v1.GET("show/collection",v1get.ShowCollection)  // now 未完成
+			// 上传视频
+			// 查看视频信息
+			// 修改视频信息
+			// 删除视频
+			// 查看课程目录中的视频
+			// 增加课程目录中的视频
+			// 发表评论
+			// 查看评论
+			// 删除评论
+
+			// 添加购物车,不是直接订单
+			// 购物车下单状态更改 添加订单
+
+			// 查看课程购买记录(老师)
+			// 查看拥有金额(老师)
+			// 提成金额(老师)
+			// 提成记录(老师)
+
+
 			// 上传用户头像
 
 
@@ -89,31 +104,34 @@ func NewRouter() *gin.Engine{
 			v1.POST("logout",v1post.Logout)
 		}
 
+
+
+		// 后台管理,或者使用另一个web服务开管理,不过记得模型要一样
+		{
+			v1.Use(middleware.AuthAdminLogin())
+			// 查看视频和总个数
+			// 根据天数查看当天视频上传个数 七天为期
+			// 根据天数查看当天注册的人数(学生or老师or全部)
+			// 查看总注册人数(老师or学生or全部)
+
+			// 删除视频
+			// 删除评论
+
+			// 根据天数查看当天下单金额
+			// 根据月份查看当月下单金额
+			// 总共下单金额
+
+			// 站点提成金额总数
+			// 根据天数查看当天提成金额
+			// ...
+
+			// 被老师提取出去的金额总数
+			// 根据天数查看被老师提取出去的金额总数
+			// ...
+
+		}
+
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

@@ -23,8 +23,6 @@ func IntroductionService(c *gin.Context) *serialize.Response{
 	}
 
 	uid := sessions.Default(c).Get("user_id")
-	// uid = "100002"
-	// user, err := model.GetUser(uid)
 	var introductionData introductionData
 	if uid == "" {
 		sql := "select " +

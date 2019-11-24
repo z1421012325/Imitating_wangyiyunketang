@@ -21,6 +21,12 @@ https://study.163.com/course/introduction.htm?courseId=1209318815&_trace_c_p_k2_
 alter table curriculums drop column t_id
 ```
 
+4.在课程收藏表添加添加时间字段
+```mysql
+alter table use_collections add create_at datetime default now();
+```
+
+
 
 #mysql语句
 ```mysql  建数据库

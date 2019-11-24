@@ -1,5 +1,7 @@
 package model
 
+import "time"
+
 /*
 用户收藏课程
 CREATE TABLE `use_collections` (
@@ -12,8 +14,9 @@ CREATE TABLE `use_collections` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
  */
 type UseCollections struct {
-	UID int `gorm:"column:u_id"`
-	CID int `gorm:"column:c_id"`
+	UID 		int 		`gorm:"column:u_id"`
+	CID 		int 		`gorm:"column:c_id"`
+	Create_At 	time.Time	`gorm:"column:create_at"`
 }
 
 func (uc *UseCollections)TableName()string{
