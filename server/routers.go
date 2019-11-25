@@ -89,14 +89,19 @@ func NewRouter() *gin.Engine{
 			// 下架视频
 			v1.DELETE("del/curriculum",v1del.DelCurriculum)
 			// 查看下架的视频
-			// 回复下架视频
+			v1.GET("show/del/curriculum",v1get.ShowDelCurriculum)
+			// 恢复下架视频
+			v1.POST("recovery/curriculum",v1post.RecoveryCurriculum)
 
 			// 查看课程目录中的视频
 			// 增加课程目录中的视频
 
 			// 发表评论
+			v1.POST("add/comment",v1post.AddComment)
 			// 查看评论
+			v1.GET("see/comment",v1get.SeeComment)
 			// 删除评论
+			v1.DELETE("del/comment",v1del.DelComment)
 
 			// 添加购物车,不是直接订单
 			// 购物车下单状态更改 添加订单

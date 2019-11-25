@@ -27,6 +27,16 @@ alter table use_collections add create_at datetime default now();
 alter table use_collections add delete_at datetime;
 ```
 
+5.修改添加(评论表)联合索引,默认设置错误,每个课程的每个用户只能评论一个,除非删除
+```mysql
+alter table curriculum_comments drop foreign key curriculum_comments_ibfk_1;
+alter table curriculum_comments drop foreign key curriculum_comments_ibfk_2;
+alter table curriculum_comments drop index c_id;
+alter table curriculum_comments drop index u_id;
+alter table curriculum_comments add unique index (u_id,c_id);
+alter table curriculum_comments add foreign key curriculum_comments_ibfk_1 (u_id) references users(u_id);
+alter table curriculum_comments add foreign key curriculum_comments_ibfk_2 (c_id) references curriculums(c_id);
+```
 
 
 #mysql语句
