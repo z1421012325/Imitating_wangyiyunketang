@@ -2,12 +2,12 @@ package post
 
 import (
 	"demos/serialize"
-	service2 "demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 func ModifyPswd(c *gin.Context){
-	var service service2.ModifyPswdService
+	var service user.ModifyPswdService
 	if err := c.ShouldBind(&service); err!= nil{
 		c.JSON(200,serialize.ParamErr("",err))
 		return

@@ -1,6 +1,10 @@
 package model
 
-import "time"
+import (
+	"demos/DB"
+	"golang.org/x/crypto/bcrypt"
+	"time"
+)
 
 /*
 admin
@@ -15,14 +19,41 @@ UNIQUE KEY `username` (`username`))
 ENGINE=InnoDB AUTO_INCREMENT=10000 DEFAULT CHARSET=utf8;
  */
 type Admin struct {
-	ID          int       `gorm:"column:c_id" json:"aid"`
-	UserName    string    `gorm:"username:c_id" json:"uname"`
-	Pswd        string    `gorm:"pswd:c_id" json:"-"`
-	Status      int       `gorm:"column:status" json:"status"`
-	Info        string    `gorm:"column:info" json:"info"`
-	CcreateTime time.Time `gorm:"column:create_at" json:"at"`
+	ID          int       `gorm:"column:aid"           json:"aid"`
+	UserName    string    `gorm:"column:username"      json:"username"`
+	Pswd        string    `gorm:"column:pswd"          json:"-"`
+	Status      int       `gorm:"column:status"        json:"status"`
+	Info        string    `gorm:"column:info"          json:"info"`
+	CreateTime  time.Time `gorm:"column:create_at"     json:"at"`
 }
 
 func (a *Admin)TableName()string{
 	return "admins"
+}
+
+// GetAdminUser
+func GetAdminUser(ID interface{}) (Admin, error) {
+	var user Admin
+	result := DB.DB.Where("a_id = ?",ID).First(&user)
+	user.Pswd = ""
+	return user, result.Error
+}
+
+
+
+// SetPassword 设置密码
+func (user *Admin) SetPassword(password string) error {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), PassWordCost)
+	if err != nil {
+		return err
+	}
+	user.Pswd = string(bytes)
+	return nil
+}
+
+
+// CheckPassword 校验密码
+func (user *Admin) CheckPassword(password string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(user.Pswd), []byte(password))
+	return err == nil
 }

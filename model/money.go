@@ -19,3 +19,8 @@ type Money struct {
 func (m *Money)TableName()string{
 	return "money"
 }
+
+const (
+	// 划分金额比例
+	Divide = 0.05
+)

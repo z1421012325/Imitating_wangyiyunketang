@@ -32,6 +32,9 @@ type User struct {
 	RID 		int			`gorm:"column:r_id" json:"rid"`
 	Portrait 	string		`gorm:"column:portrait" json:"img"`
 	CreateTime 	time.Time	`gorm:"column:create_at" json:"at"`
+
+	AdminDelTime  	time.Time		`gorm:"column:admin_del" json:"a_del"`		// 后台人员删除时间
+	Aid       		int				`gorm:"column:a_id" json:"aid"`				// 后台执行人信息
 }
 
 func (u *User)TableName()string{
@@ -43,17 +46,23 @@ const (
 	// PassWordCost 密码加密难度
 	PassWordCost = 12
 
-	// Active 激活用户
-	//Active string = "active"
-
 	// 老师
 	Teacher int = 1
+	// 学生
+	Student int = 2
+
+	// 未激活用户
+	Inactive = 0
+	// 激活用户
+	Active = 1
+	// 封禁用户
+	Prohibit = 3
 
 	// Inactive 未激活用户
 	//Inactive string = "inactive"
+	// Active 激活用户
+	//Active string = "active"
 
-	// 学生
-	Student int = 2
 )
 
 // GetUser 用ID获取用户

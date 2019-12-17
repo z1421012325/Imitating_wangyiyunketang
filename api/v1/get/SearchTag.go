@@ -1,11 +1,11 @@
 package get
 
 import (
-	"demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 func SearchTag(c *gin.Context){
-	res := service.SearchTagService(c)
+	res := user.SearchTagService(c)
 	c.JSON(200,res)
 }

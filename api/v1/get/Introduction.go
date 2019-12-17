@@ -1,13 +1,13 @@
 package get
 
 import (
-	"demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 
 // 课程页面
 func Introduction(c *gin.Context){
-	res := service.IntroductionService(c)
+	res := user.IntroductionService(c)
 	c.JSON(200,res)
 }

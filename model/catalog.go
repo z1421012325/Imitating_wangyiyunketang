@@ -14,10 +14,14 @@ import "time"
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8
  */
 type CataLog struct {
-	ID         int       `gorm:"column:c_id" json:"id"`
+	ID         int       `gorm:"column:c_id" json:"cid"`
 	Name       string    `gorm:"column:name" json:"name"`
 	URL        string    `gorm:"column:url" json:"url"`
 	CreateTime time.Time `gorm:"column:create_at" json:"at"`
+
+	// 新增字段
+	DeleteTime time.Time `gorm:"column:delete_at" json:"dt"`
+	CataId     int		 `gorm:"column:id" json:"id"`
 }
 
 func (cl *CataLog)TableName()string{

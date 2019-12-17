@@ -9,7 +9,7 @@ CREATE TABLE `purchases` (
   `u_id` bigint(20) DEFAULT NULL COMMENT '外键 用户id',
   `status` tinyint(1) DEFAULT NULL COMMENT '订单状态,默认为0未支付 支付为1',
   `price` float(10,2) DEFAULT NULL COMMENT '订单当时价格,数量不考虑因为是类似网易云课堂这种 只能买一份',
-  `number` varchar(35) DEFAULT NULL COMMENT 'uuid流水号',
+  `number` varchar(40) DEFAULT NULL COMMENT 'uuid流水号',
   `create_at` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   KEY `u_id` (`u_id`),
   KEY `c_id` (`c_id`),
@@ -34,5 +34,6 @@ func (pc *Purchases)TableName()string{
 
 
 const (
-	DefaultStatus = 1			// 支付
+	DefaultStatus = 0			// 未支付
+	CompleteStatus = 1			// 支付
 )

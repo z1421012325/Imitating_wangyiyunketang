@@ -6,15 +6,24 @@ import (
 
 
 
-//  Transection 事务封装?
-func Transaction(db *gorm.DB)bool{
+func Transaction(dbs ...*gorm.DB)bool{
 
 	tx := DB.Begin()
-	tx = db
 
-	if tx.Error != nil {
-		tx.Rollback()
-		return false
+	//tx = db
+	//if tx.Error != nil {
+	//	tx.Rollback()
+	//	return false
+	//}
+
+	for _,db := range dbs{
+		tx = db
+
+		if tx.Error != nil {
+			tx.Rollback()
+			return false
+		}
+
 	}
 
 	tx.Commit()

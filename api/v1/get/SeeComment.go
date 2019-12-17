@@ -1,11 +1,11 @@
 package get
 
 import (
-	"demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 func SeeComment(c *gin.Context){
-	res := service.SeeCommentService(c)
+	res := user.SeeCommentService(c)
 	c.SecureJSON(200,res)
 }

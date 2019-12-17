@@ -18,7 +18,7 @@ CREATE TABLE `extracts` (
  */
 type Extracts struct {
 	EID         int       `gorm:"column:e_id" json:"eid"`
-	UID         int       `gorm:"column:" json:"uid"`
+	UID         int       `gorm:"column:u_id" json:"uid"`
 	Money       float64   `gorm:"column:t_money" json:"money"`
 	Divide      float64   `gorm:"column:divide" json:"divide"`
 	ActualMoney float64   `gorm:"column:actual_money" json:"am"`

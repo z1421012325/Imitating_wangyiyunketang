@@ -2,12 +2,12 @@ package delete
 
 import (
 	"demos/serialize"
-	"demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 func DelComment(c *gin.Context){
-	var service service.DelCommentService
+	var service user.DelCommentService
 	if err := c.ShouldBind(&service);err != nil{
 		c.JSON(200,serialize.ParamErr("",err))
 		return

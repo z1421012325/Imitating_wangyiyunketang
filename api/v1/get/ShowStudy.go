@@ -1,11 +1,11 @@
 package get
 
 import (
-	"demos/service"
+	"demos/service/user"
 	"github.com/gin-gonic/gin"
 )
 
 func ShowStudy(c *gin.Context){
-	res := service.ShowStudyService(c)
+	res := user.ShowStudyService(c)
 	c.JSON(200,res)
 }

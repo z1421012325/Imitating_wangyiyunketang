@@ -27,7 +27,7 @@ alter table use_collections add create_at datetime default now();
 alter table use_collections add delete_at datetime;
 ```
 
-5.修改添加(评论表)联合索引,默认设置错误,每个课程的每个用户只能评论一个,除非删除
+5.修改添加(评论表..)联合索引,默认设置错误,每个课程的每个用户只能评论一个,除非删除
 ```mysql
 alter table curriculum_comments drop foreign key curriculum_comments_ibfk_1;
 alter table curriculum_comments drop foreign key curriculum_comments_ibfk_2;
@@ -36,6 +36,25 @@ alter table curriculum_comments drop index u_id;
 alter table curriculum_comments add unique index (u_id,c_id);
 alter table curriculum_comments add foreign key curriculum_comments_ibfk_1 (u_id) references users(u_id);
 alter table curriculum_comments add foreign key curriculum_comments_ibfk_2 (c_id) references curriculums(c_id);
+
+#课程目录修改
+alter table catalog add delete_at datetime;
+alter table catalog add id int primary key auto_increment;
+```
+
+6.后台管理增加模型字段(增加字段为显示软删除执行人员和执行人员软删除时间)
+```mysql
+alter table  curriculum_comments add admin_del datetime;
+alter table  curriculum_comments add a_id tinyint;
+alter table curriculum_comments add foreign key delete_admin_user_id (a_id) references admins(a_id);
+
+alter table  users add admin_del datetime;
+alter table  users add a_id tinyint;
+alter table  users add foreign key delete_admin_user_id (a_id) references admins(a_id);
+
+alter table  curriculums add admin_del datetime;
+alter table  curriculums add a_id tinyint;
+alter table  curriculums add foreign key delete_admin_user_id (a_id) references admins(a_id);
 ```
 
 
