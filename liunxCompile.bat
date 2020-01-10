@@ -1,4 +1,4 @@
-:: 在win上进行liunx可执行文件编译
+:: 在win上进行liunx可执行交叉文件编译
 
 set GOOS=linux
 set GOARCH=amd64

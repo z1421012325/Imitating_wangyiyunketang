@@ -1,6 +1,8 @@
 # 使用库
 ```
-gin,redis,mysql,gorm ...
+gin,redis,mysql,gorm
+aliyun-oss          github.com/aliyun/aliyun-oss-go-sdk/oss
+alipay              github.com/smartwalle/alipay/v3
 ```
 
 
@@ -208,3 +210,16 @@ Foreign key (c_id) references curriculums(c_id)
 # table展示
 ![table关系展示](zdesign/reverse table.png)
 ![table展示](zdesign/tables.png)
+
+
+# 编译
+windows 下编译                  go bulid main.go 
+windows 下编译为liunx环境应用     .\liunxCompile.bat
+liunx   下编译                  go bulid main.go 
+
+
+# 运行
+```shell script
+根据情况,修改一些配置,不要参照
+```
+build.sh 编译下载docker并运行容器
