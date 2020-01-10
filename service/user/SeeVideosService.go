@@ -22,5 +22,9 @@ func SeeVideosService(c *gin.Context)*serialize.Response{
 				"order by c.create_at asc"
 	DB.DB.Raw(sql,cid).Scan(&data)
 
+	for _,data :=range data{
+		data.CompletionToOssUrl()
+	}
+
 	return serialize.Res(data,"")
 }

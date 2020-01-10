@@ -4,12 +4,11 @@ import (
 	"demos/DB"
 	"demos/model"
 	"demos/serialize"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
 type ModifyShoppingStatusService struct {
-	Number     string    `form:"number" json:"number"`   // 订单流水号
+	Number     string    `form:"number" json:"number" binding:"required"`   // 订单流水号
 	//UID        int       `form:"uid" json:"uid"`
 	//CID        int       `form:"cid" json:"cid"`
 }
@@ -18,7 +17,6 @@ func (service *ModifyShoppingStatusService)ModifyShoppingStatus(c *gin.Context)*
 
 	//todo
 
-	fmt.Println(service)
 	var data model.Purchases
 	DB.DB.Where("number = ? and status = ?",service.Number,model.DefaultStatus).First(&data)
 	if data.Number == ""{

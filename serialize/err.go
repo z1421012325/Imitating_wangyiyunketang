@@ -11,6 +11,7 @@ const (
 	MsgAccountErr		= "账号或者密码错误"
 	MsgEncryptErr		= "密码加密错误"
 	MsgCheckLogin		= "未登录"
+	MsgTransaction      = "转账失败"
 
 
 	// code
@@ -23,6 +24,8 @@ const (
 	CodeDBError = 50001
 	// CodeEncryptError 加密失败
 	CodeEncryptError = 50002
+	// 转账失败
+	CodeTransactionError = 50003
 
 	//CodeParamErr 各种奇奇怪怪的参数错误
 	CodeParamErr = 40001

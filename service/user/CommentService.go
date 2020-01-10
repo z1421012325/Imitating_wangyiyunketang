@@ -16,10 +16,10 @@ type CurriculumCommentData struct {
 
 func CommentService(c *gin.Context) *serialize.Response{
 
-	cid := c.Param("cid")  // 102
+	cid := c.Param("cid")
 	start,num := service.PagingQuery(c)
 
-	var cms CurriculumCommentData
+	var data CurriculumCommentData
 	sql := "select " +
 				"u.u_id,u.nickename,u.r_id," +
 				"cm.c_id,cm.number,cm.comment,cm.create_at " +
@@ -31,10 +31,10 @@ func CommentService(c *gin.Context) *serialize.Response{
 			"where " +
 				"cm.c_id = ? limit ?,?"
 
-	DB.DB.Raw(sql,cid,start,num).Scan(&cms.Result)
-	DB.DB.Model(&model.CurriculumComment{}).Where("c_id = ?",cid).Count(&cms.Total)
+	DB.DB.Raw(sql,cid,start,num).Scan(&data.Result)
+	DB.DB.Model(&model.CurriculumComment{}).Where("c_id = ?",cid).Count(&data.Total)
 
-	return serialize.Res(cms,"")
+	return serialize.Res(data,"")
 }
 
 

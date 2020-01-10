@@ -24,5 +24,8 @@ func TeacherCurriculumVideoService(c *gin.Context)*serialize.Response{
 			"where u.r_id = ? and c.c_id = ? and c.delete_at is null and cc.u_id = ? " +
 				"order by c.create_at asc"
 	DB.DB.Raw(sql,model.Teacher,cid,uid).Scan(&data)
+
+	data.CompletionToOssUrl()
+
 	return serialize.Res(data,"")
 }

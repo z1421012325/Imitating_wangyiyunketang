@@ -10,7 +10,7 @@ import (
 )
 
 type AddShoppingService struct {
-	CID int `json:"cid" form:"cid"`
+	CID int `json:"cid" form:"cid" binding:"required"`
 }
 
 
@@ -24,7 +24,8 @@ func (service *AddShoppingService)AddShopping(c *gin.Context)*serialize.Response
 	uuid := util.GetUuid()
 
 	sql := "insert into purchases (u_id,c_id,status,price,number) values (?,?,?,?,?)"
-	ok := DB.Transaction(DB.DB.Exec(sql,uid,service.CID,model.DefaultStatus,price.Price,uuid))
+	db1 := DB.DB.Exec(sql,uid,service.CID,model.DefaultStatus,price.Price,uuid)
+	ok := DB.Transaction(db1)
 	if !ok {
 		return serialize.DBErr("add shopping faild",nil)
 	}

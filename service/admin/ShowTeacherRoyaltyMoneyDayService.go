@@ -6,7 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type ShowTeacherRoyaltyMoneyDayServiceRes struct {
+type ShowTeacherRoyaltyMoneyDayServiceDate struct {
 	Time  string			`gorm:"column:time"  json:"time"`
 	Money float64			`gorm:"column:money" json:"money"`
 }
@@ -15,7 +15,7 @@ func ShowTeacherRoyaltyMoneyDayService(c *gin.Context)*serialize.Response{
 	day := c.Param("day")
 
 	sql := "select date_format(create_at,'%Y-%m-%d')as time,sum(actual_money)as money from extracts group by time limit 0,?"
-	var data []ShowTeacherRoyaltyMoneyDayServiceRes
+	var data []ShowTeacherRoyaltyMoneyDayServiceDate
 	DB.DB.Raw(sql,day).Scan(&data)
 
 	return serialize.Res(data,"")

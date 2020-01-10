@@ -34,6 +34,10 @@ var (
 //)
 
 
+
+/*
+ 	mysql 和redis 连接池连接初始化
+ */
 func init(){
 	name := os.Getenv("MYSQL_NAME")
 	pswd := os.Getenv("MYSQL_PASSWORD")
@@ -78,10 +82,11 @@ func init(){
 		MaxConnAge:         0,
 	})
 
-	//_,err = rb.Ping().Result()
-	//if err != nil {
-	//	panic(err)
-	//}
+	_,err = rb.Ping().Result()
+	if err != nil {
+		panic(err)
+	}
+
 	RB = rb
 }
 

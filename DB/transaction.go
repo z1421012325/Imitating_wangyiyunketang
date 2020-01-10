@@ -5,25 +5,20 @@ import (
 )
 
 
-
-func Transaction(dbs ...*gorm.DB)bool{
+/*
+	开启 mysql 事务操作
+	支持一次传递多个 *gorm.DB 执行语句(exce)
+ */
+func Transaction(dbs ...*gorm.DB) bool {
 
 	tx := DB.Begin()
 
-	//tx = db
-	//if tx.Error != nil {
-	//	tx.Rollback()
-	//	return false
-	//}
-
 	for _,db := range dbs{
 		tx = db
-
 		if tx.Error != nil {
 			tx.Rollback()
 			return false
 		}
-
 	}
 
 	tx.Commit()

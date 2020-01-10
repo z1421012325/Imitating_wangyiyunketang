@@ -2,14 +2,14 @@ package server
 
 import (
 	_ "demos/DB"
+	_ "demos/util"
 
+	admindel "demos/api/admin/delete"
+	adminget "demos/api/admin/get"
+	adminpost "demos/api/admin/post"
+	v1del "demos/api/v1/delete"
 	v1get "demos/api/v1/get"
 	v1post "demos/api/v1/post"
-	v1del "demos/api/v1/delete"
-
-	adminget "demos/api/admin/get"
-	admindel "demos/api/admin/delete"
-	adminpost "demos/api/admin/post"
 
 	"demos/middleware"
 
@@ -26,6 +26,9 @@ func NewRouter() *gin.Engine{
 	Router.Use(middleware.Cors())
 	Router.Use(middleware.Session())
 	Router.Use(middleware.Auth())
+
+	// 支付宝回调信息
+	Router.POST("zfb/callback",v1post.ZfbCallback)
 
 
 	// 版本迭代
@@ -51,6 +54,8 @@ func NewRouter() *gin.Engine{
 		v1.GET("search",v1get.Search)
 		// 查询tag
 		v1.GET("search/tag",v1get.SearchTag)
+		// 查看点击排行
+		v1.GET("show/list/click",v1get.ShowListClick)
 
 
 		// 所有人都能查看到的学生信息
@@ -84,8 +89,16 @@ func NewRouter() *gin.Engine{
 			// 取消(删除)收藏
 			v1.DELETE("del/collection",v1del.DelCollection)
 
-			// 上传视频(老师)  upload  给予凭证去oos上传
+
+			// 给予aliyun-oss凭证 让前端去aliyun-oss上传
+			v1.POST("get/oss/token",v1post.GetOss)
+			// 新增视频 保存上传视频(老师)url
+			v1.POST("save/new/video",v1post.SaveNewVideo)
 			// 后续增加课程目录中的视频
+			v1.POST("save/add/video",v1post.SaveAddVideo)
+			// 保存用户头像
+			v1.POST("save/portrait",v1post.UploadPortrait)
+
 
 			// 查看视频信息(老师)
 			v1.GET("see/teacher/curriculum/video/:cid",v1get.TeacherCurriculumVideo)
@@ -101,7 +114,7 @@ func NewRouter() *gin.Engine{
 			v1.DELETE("del/curriculum",v1del.DelCurriculum)
 			// 查看下架的视频
 			v1.GET("show/del/curriculum",v1get.ShowDelCurriculum)
-			// 恢复下架视频
+			// 恢复下架视频(老师)
 			v1.POST("recovery/curriculum",v1post.RecoveryCurriculum)
 
 			// 查看课程中的视频(目录)  和无需登录的冲突了  解决了 无需登录那个不返回课程的每个url
@@ -118,6 +131,28 @@ func NewRouter() *gin.Engine{
 			v1.POST("add/shopping",v1post.AddShopping)
 			// 查看购物车
 			v1.GET("show/shopping",v1get.ShowShopping)
+
+
+			// --------------------------------------------------------------------------------------------
+
+			// 获得微信,支付宝 跳转url(wap版和pc版)  参数 课程id
+			v1.GET("get/zfb/:cid",v1get.GetZFBQR)
+			// gg 微信开发号给冻结...用不了
+			v1.GET("get/wx/:cid",v1get.GetWXQR)
+
+			// todo 由于中间件拦截 所以需要移动到外层
+			// 微信 支付宝回调函数  now modify
+			// v1.POST("zfb/callback",v1post.ZfbCallback)
+			//v1.POST("wx/callback",v1post.WxCallback)
+			// 支付宝查询付款详情(是否成功)
+			v1.POST("query/zfb/issuccess",v1post.QueryZfbIssuccess)
+			v1.POST("query/wx/issuccess",v1post.QueryWxIssuccess)
+
+			// --------------------------------------------------------------------------------------------
+
+
+
+
 			// 购物车下单状态更改(购买) 添加订单
 			v1.POST("modify/shopping/status",v1post.ModifyShoppingStatus)
 
@@ -127,14 +162,10 @@ func NewRouter() *gin.Engine{
 			v1.GET("show/Teacher/curriculum/record",v1get.TeacherRecord)
 			// 查看拥有金额(老师)
 			v1.GET("have/money",v1get.HaveMoney)
-			// 提成金额(老师)
+			// 提成金额(老师)  zfb
 			v1.POST("extract/money",v1post.ExtractMoney)
 			// 提成记录(老师)
 			v1.GET("extract/record",v1get.ExtractRecord)
-
-
-			// 上传用户头像
-
 
 			// 退出
 			v1.POST("logout",v1post.Logout)
@@ -151,13 +182,13 @@ func NewRouter() *gin.Engine{
 	// todo 注册不予开放,直接数据库或者另一个程序进行注册  模型中添加是谁删除的 在admin的删除相关中需要弄好
 	admin.POST("register/user",adminpost.RegisterAdmin)
 	{
-		// admin.Use(middleware.AuthAdminLogin())   >>> todo 有问题... 怎么在session中找不到在login中设置的admin_id
+		admin.Use(middleware.AuthAdminLogin())
 		// 推出
 		admin.POST("logout",adminpost.Logout)
 
 		// 查看视频和总个数
 		admin.GET("show/video/total",adminget.ShowVideoTotal)
-		// 根据天数查看当天视频上传个数 使用参数控制返回数据范围 1 - 365			todo 或者月份 根据参数选择时按照月份还是天数
+		// 根据天数查看当天视频上传个数 使用参数控制返回数据范围 1 - 365
 		admin.GET("show/curriculum/count/:day",adminget.ShowCurriculumDays)
 		// 根据天数查看正常注册的人数(学生or老师or全部)
 		admin.GET("show/user/count/:day",adminget.ShowUserDays)
@@ -168,7 +199,7 @@ func NewRouter() *gin.Engine{
 		admin.GET("show/users/list",adminget.ShowUsersList)
 
 		// 封禁用户 todo 使用用户中的status字段 添加 默认3为封禁用户
-		admin.DELETE("prohibit/user",admindel.ProhibitUser)
+		admin.DELETE("del/prohibit/user",admindel.ProhibitUser)
 		// 查看封禁用户
 		admin.GET("show/prohibit/users",adminget.ShowProhibitUsers)
 		// 解封用户
@@ -178,12 +209,17 @@ func NewRouter() *gin.Engine{
 		admin.GET("show/list/video",adminget.ShowListVideo)
 		// 下架视频
 		admin.DELETE("del/video",admindel.DelVideo)
-
+		// 恢复视频
+		admin.POST("adopt/video",adminpost.AdoptVideo)
 
 		// 查看评论
 		admin.GET("show/comments",adminget.ShowComment)
 		// 删除评论
 		admin.DELETE("del/comment",admindel.DelComment)
+		// 恢复评论
+		admin.POST("adopt/comment",adminpost.AdoptComment)
+
+
 
 		// 根据天数查看当天下单金额
 		admin.GET("show/day/money/:day",adminget.ShowDayMoney)

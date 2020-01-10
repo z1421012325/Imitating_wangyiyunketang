@@ -25,8 +25,8 @@ type CurriculumComment struct {
 	CreateTime time.Time `gorm:"column:create_at" json:"at"`
 	DeleteTime time.Time `gorm:"column:delete_at" json:"-"`
 
-	AdminDelTime  	time.Time		`gorm:"column:admin_del" json:"a_del"`		// 后台人员删除时间
-	Aid       		int				`gorm:"column:a_id" json:"aid"`				// 后台执行人信息
+	AdminDelTime time.Time `gorm:"column:admin_del" json:"a_del"` // 后台人员删除时间
+	Aid          int       `gorm:"column:a_id" json:"aid"`        // 后台执行人信息
 }
 
 

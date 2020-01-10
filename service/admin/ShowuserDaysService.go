@@ -7,7 +7,7 @@ import (
 )
 
 type ShowuserDaysRes struct {
-	Time string  `gorm:"column:time" json:"time"`
+	Time string  `gorm:"column:time"  json:"time"`
 	Count int    `gorm:"column:count" json:"count"`
 }
 

@@ -14,10 +14,6 @@ func Logout(c *gin.Context){
 		if _, ok := user.(*model.User); ok {
 			s.Clear()
 			_ = s.Save()
-			//c.JSON(200, serialize.Response{
-			//	Code: 0,
-			//	Msg:  "登出成功",
-			//})
 			c.JSON(200,serialize.Res(nil,"登出成功"))
 		}
 	}

@@ -23,5 +23,9 @@ func RecordService(c *gin.Context)*serialize.Response{
 	DB.DB.Raw(sql,uid,Start,size).Scan(&data.Result)
 	DB.DB.Model(&model.ShoppingCarts{}).Where("u_id = ?",uid).Count(&data.Total)
 
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
+
 	return serialize.Res(data,"")
 }

@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"demos/util"
+	"time"
+)
 
 /*
 课程目录
@@ -27,3 +30,11 @@ type CataLog struct {
 func (cl *CataLog)TableName()string{
 	return "catalog"
 }
+
+
+// 补全存储在oss中的路径
+func (model *CataLog)CompletionToOssUrl(){
+	model.URL = util.CompletionToOssUrl(model.URL)
+}
+
+

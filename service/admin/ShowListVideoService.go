@@ -21,5 +21,9 @@ func ShowListVideoService(c *gin.Context)*serialize.Response{
 	DB.DB.Raw(sql,start,size).Scan(&data.Result)
 	DB.DB.Model(&model.Curriculums{}).Where("delete_at is null").Count(&data.Total)
 
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
+
 	return serialize.Res(data,"")
 }

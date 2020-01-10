@@ -8,18 +8,17 @@ import (
 )
 
 type AddTeacherCurriculumVideoCatalogService struct {
-	ID         int       `json:"cid" form:"cid"`
-	Name       string    `json:"name" form:"name"`
-	URL        string    `json:"url" form:"url"`
+	ID         int       `json:"cid"   form:"cid"    binding:"required"`
+	Name       string    `json:"name"  form:"name"   binding:"required"`
+	URL        string    `json:"url"   form:"url"    binding:"required"`
 
-	UID 	   string    `json:"uid" form:"uid"`
+	UID 	   int       `json:"uid"   form:"uid"    binding:"required"`
 }
 
 
 func (service *AddTeacherCurriculumVideoCatalogService)AddTeacherCurriculumVideoCatalog(c *gin.Context)*serialize.Response{
 
-	uid := service2.GetUserId(c)
-	if uid != service.UID{
+	if !service2.CheckUidToUid(service.UID,c){
 		return serialize.CheckLogin()
 	}
 

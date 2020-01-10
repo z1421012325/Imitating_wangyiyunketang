@@ -4,7 +4,6 @@ import (
 	"demos/DB"
 	"demos/serialize"
 	service2 "demos/service"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -19,9 +18,8 @@ func (service *DelCurriculumService)DelCurriculum(c *gin.Context)*serialize.Resp
 
 	ok := DB.Transaction(DB.DB.Exec(sql,uid,service.CID))
 	if !ok {
-		return serialize.DBErr("",nil)
+		return serialize.DBErr("del curriculum faild",nil)
 	}
 
-	fmt.Println(uid,service.CID,sql)
 	return serialize.Res(nil,"del curriculum success")
 }

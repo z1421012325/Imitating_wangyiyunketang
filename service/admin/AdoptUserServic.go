@@ -7,7 +7,7 @@ import (
 )
 
 type AdoptUserServic struct {
-	UID 	string  `json:"uid" form:"uid"`
+	UID 	string  `json:"uid" form:"uid" binding:"required"`
 }
 
 

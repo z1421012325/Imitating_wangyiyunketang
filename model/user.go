@@ -2,6 +2,7 @@ package model
 
 import (
 	"demos/DB"
+	"demos/util"
 	"golang.org/x/crypto/bcrypt"
 	"time"
 )
@@ -90,4 +91,10 @@ func (user *User) SetPassword(password string) error {
 func (user *User) CheckPassword(password string) bool {
 	err := bcrypt.CompareHashAndPassword([]byte(user.Pswd), []byte(password))
 	return err == nil
+}
+
+
+// 补全存储在oss中的路径
+func (model *User)CompletionToOssUrl(){
+	model.Portrait = util.CompletionToOssUrl(model.Portrait)
 }

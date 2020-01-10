@@ -23,5 +23,9 @@ func ShowStudyService(c *gin.Context) *serialize.Response {
 	var data []model.Curriculums
 	DB.DB.Raw(sql,uid,start,size).Scan(&data)
 
+	for _,data := range data{
+		data.CompletionToOssUrl()
+	}
+
 	return serialize.Res(data,"")
 }

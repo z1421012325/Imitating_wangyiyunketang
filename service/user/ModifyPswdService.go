@@ -12,16 +12,14 @@ import (
 )
 
 type ModifyPswdService struct {
-	BeforePswd		 string	`json:"beforepswd" form:"beforepswd" binding:"required,min=8,max=40"`
-	Pswd             string `json:"pswd" form:"pswd" binding:"required,min=8,max=40"`
-	Password_confirm string `json:"pswdconfirm" form:"pswdconfirm" binding:"required,min=8,max=40"`
+	BeforePswd		 string	`json:"beforepswd"   form:"beforepswd"       binding:"required,min=8,max=40"`
+	Pswd             string `json:"pswd"         form:"pswd"             binding:"required,min=8,max=40"`
+	Password_confirm string `json:"pswdconfirm"  form:"pswdconfirm"      binding:"required,min=8,max=40"`
 }
 
-// todo  密码修改,暂时先一个简单的修改
 func (service *ModifyPswdService)ModifyPswd(c *gin.Context)*serialize.Response{
 
 	var user model.User
-	//uid := user2.GetUserId(c)
 	uid := ser.GetUserId(c)
 
 	ok := service.checkpswd(&user,uid)
@@ -35,7 +33,6 @@ func (service *ModifyPswdService)ModifyPswd(c *gin.Context)*serialize.Response{
 	if !err {
 		return serialize.DBErr("fail",nil)
 	}
-
 
 
 	clearSession(c)

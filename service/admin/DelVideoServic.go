@@ -8,13 +8,13 @@ import (
 )
 
 type DelVideoServic struct {
-	CID int    `json:"cid" form:"cid"`
+	CID int    `json:"cid" form:"cid" binding:"required"`
 }
 
 
 func (service *DelVideoServic)DelVideo(c *gin.Context)*serialize.Response{
 
-	aid := service2.GetUserId(c)
+	aid := service2.GetAdminId(c)
 
 	sql := "update curriculums set admin_del = now(),a_id = ? where c_id = ? and delete_at is null"
 	db1 := DB.DB.Exec(sql,aid,service.CID)

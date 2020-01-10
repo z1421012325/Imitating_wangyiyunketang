@@ -4,7 +4,6 @@ import (
 	"demos/DB"
 	"demos/serialize"
 	service2 "demos/service"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -23,6 +22,5 @@ func (service *DelCommentService)DelComment(c *gin.Context)*serialize.Response{
 		return serialize.DBErr("del faild",nil)
 	}
 
-	fmt.Println(uid,service.CID)
 	return serialize.Res(nil,"del success")
 }

@@ -17,11 +17,14 @@ func ShowUsersListService(c *gin.Context)*serialize.Response{
 
 	start,size := service.PagingQuery(c)
 
-	sql := "select u_id,nickename,status,r_id,portrait,create_at from users order by create_at desc limit ?,?"
+	sql := "select u_id,nickename,status,r_id,portrait,create_at from users where status != 0 order by create_at desc limit ?,?"
 	var data ShowUsersListRes
 	DB.DB.Raw(sql,start,size).Scan(&data.Result)
 	DB.DB.Model(&model.User{}).Where("status != ? ",0).Count(&data.Total)
 
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
 
 	return serialize.Res(data,"")
 

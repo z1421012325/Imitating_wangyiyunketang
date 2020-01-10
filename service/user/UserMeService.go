@@ -22,5 +22,8 @@ func UserMeService(c *gin.Context)*serialize.Response{
 
 	var user model.User
 	DB.DB.Raw(sql,uid).Scan(&user)
+
+	user.CompletionToOssUrl()
+
 	return serialize.Res(user,"")
 }

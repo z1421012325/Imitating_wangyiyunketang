@@ -105,6 +105,21 @@ func EncryptionErr(msg string, err error) *Response {
 }
 
 
+func TransactionErr(msg string, err error) *Response {
+	if msg == "" {
+		msg = MsgTransaction
+	}
+	return Err(CodeTransactionError, msg, err)
+}
+
+
+
+
+
+
+
+
+
 // CheckLogin 检查登录
 func CheckLogin() *Response {
 	return &Response{

@@ -4,14 +4,15 @@ import (
 	"demos/DB"
 	"demos/model"
 	"demos/serialize"
-	"github.com/gin-contrib/sessions"
+	"demos/service"
 	"github.com/gin-gonic/gin"
+	"os"
 )
 
 
 type introductionData struct {
 	model.User					`json:"user"`
-	model.Curriculums
+	model.Curriculums			`json:"kc"`
 	model.ShoppingCarts			`json:"sp"`		// 根据商品表返回数据确定是否购买
 }
 
@@ -22,7 +23,8 @@ func IntroductionService(c *gin.Context) *serialize.Response{
 		return serialize.ParamErr("",nil)
 	}
 
-	uid := sessions.Default(c).Get("user_id")
+	uid := service.GetUserId(c)
+
 	var introductionData introductionData
 	if uid == "" {
 		sql := "select " +
@@ -52,5 +54,15 @@ func IntroductionService(c *gin.Context) *serialize.Response{
 		DB.DB.Raw(sql,cid,uid).Scan(&introductionData)
 	}
 
+	introductionData.User.CompletionToOssUrl()
+	introductionData.Curriculums.CompletionToOssUrl()
+
+	// 在redis  zset数据类型中缓存,如果没有则创建一个k为cid的字段,v为1  做热门排行
+	ordername := os.Getenv("CLICK_NAME")
+	service.SetOrderIncr(ordername,cid)
+
 	return serialize.Res(introductionData,"")
 }
+
+
+

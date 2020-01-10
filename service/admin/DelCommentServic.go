@@ -14,7 +14,7 @@ type DelCommentServic struct {
 
 func (service *DelCommentServic)DelComment(c *gin.Context)*serialize.Response{
 
-	aid := service2.GetUserId(c)
+	aid := service2.GetAdminId(c)
 
 	sql := "update curriculum_comments set admin_del = now(),a_id = ? where c_id = ? and u_id = ?"
 

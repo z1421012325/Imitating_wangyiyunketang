@@ -23,8 +23,8 @@ func (service *AddCollectionService)AddCollection(c *gin.Context) *serialize.Res
 		return serialize.DBErr("",nil)
 	}
 
-	var coll model.UseCollections
-	DB.DB.Where("u_id = ?",uid).First(&coll)
+	var data model.UseCollections
+	DB.DB.Where("u_id = ?",uid).First(&data)
 
 	return serialize.Res(nil,"add success")
 }

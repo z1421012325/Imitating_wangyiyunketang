@@ -19,7 +19,7 @@ func (service *DelCollectionService)DelCollection(c *gin.Context) *serialize.Res
 	sql := "update use_collections set delete_at = now() where u_id = ? and c_id = ?"
 	ok := DB.Transaction(DB.DB.Exec(sql,uid,service.CID))
 	if !ok{
-		return serialize.DBErr("",nil)
+		return serialize.DBErr("del collections err",nil)
 	}
 
 	fmt.Println(uid,service.CID)

@@ -17,6 +17,4 @@ func Login(c* gin.Context) {
 
 	res := service.Login(c)
 	c.JSON(200,res)
-
-
 }

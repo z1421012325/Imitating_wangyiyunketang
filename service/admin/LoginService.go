@@ -9,8 +9,8 @@ import (
 )
 
 type LoginService struct {
-	UserName string  	`json:"username" form:"username"`
-	Pswd 	 string		`json:"pswd" form:"pswd"`
+	UserName string  	`json:"username" form:"username"  binding:"required"`
+	Pswd 	 string		`json:"pswd"     form:"pswd"      binding:"required"`
 }
 
 
@@ -30,10 +30,11 @@ func (service *LoginService)Login(c *gin.Context)*serialize.Response{
 
 
 func (service *LoginService)SetSession(c *gin.Context,admin model.Admin){
+
 	s := sessions.Default(c)
 	s.Clear()
-	s.Set("admin",admin)
 	s.Set("admin_id",admin.ID)
 	_ = s.Save()
+
 }
 

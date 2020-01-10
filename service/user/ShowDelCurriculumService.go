@@ -12,7 +12,7 @@ import (
 
 type ShowDelCurriculum struct {
 	Result []model.Curriculums			`json:"result"`
-	Total int						`json:"total"`
+	Total int							`json:"total" gorm:"column:total"`
 }
 
 func ShowDelCurriculumService(c *gin.Context)*serialize.Response{
@@ -23,6 +23,10 @@ func ShowDelCurriculumService(c *gin.Context)*serialize.Response{
 	sql := "select * from curriculums where u_id = ? and delete_at is not null limit ?,?"
 	DB.DB.Raw(sql,uid,start,size).Scan(&data.Result)
 	DB.DB.Model(&model.Curriculums{}).Where("u_id = ? and delete_at is not null").Count(&data.Total)
+
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
 
 	return serialize.Res(data,"")
 }

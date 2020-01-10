@@ -15,5 +15,7 @@ func InstructorInfoService(c *gin.Context) *serialize.Response {
 		Where("u_id = ? and r_id = ?",uid,model.Teacher).
 		First(&user)
 
+	user.CompletionToOssUrl()
+
 	return serialize.Res(user,"")
 }

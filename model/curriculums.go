@@ -1,6 +1,9 @@
 package model
 
-import "time"
+import (
+	"demos/util"
+	"time"
+)
 /*
 课程
 curriculums | CREATE TABLE `curriculums` (
@@ -44,3 +47,9 @@ func (cr *Curriculums)TableName()string{
 const (
 	DefaultPrice  = 0.00
 )
+
+
+// 补全存储在oss中的路径
+func (model *Curriculums)CompletionToOssUrl(){
+	model.Image = util.CompletionToOssUrl(model.Image)
+}

@@ -12,7 +12,7 @@ type RegistryUserService struct {
 	Username      string `form:"username" json:"username" binding:"required,min=5,max=30"`
 	Password      string `form:"password" json:"password" binding:"required,min=8,max=40"`
 	AgainPassword string `form:"password_confirm" json:"password_confirm" binding:"required,min=8,max=40"`
-	Status        int    `form:"status" json:"status"`
+	Status        int    `form:"status"   json:"status"   binding:"required"`
 }
 
 
@@ -29,7 +29,6 @@ func (service *RegistryUserService) Register() *serialize.Response{
 	}
 
 
-	// gorm 的save 默认就是一个事务
 	user.Nickename = service.Nickname
 	user.Username  = service.Username
 	user.CreateTime = time.Now()
@@ -40,14 +39,9 @@ func (service *RegistryUserService) Register() *serialize.Response{
 
 	DB.DB.Where("username = ?",service.Username).First(&user)
 
-	//res := serialize.Response{
-	//	Code:  0,
-	//	Msg:   "注册成功",
-	//	Data:  &user,
-	//}
 	res := serialize.Res(user,"注册成功")
-	return res
 
+	return res
 }
 
 

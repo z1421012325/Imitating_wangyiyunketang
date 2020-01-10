@@ -34,7 +34,7 @@ func (a *Admin)TableName()string{
 // GetAdminUser
 func GetAdminUser(ID interface{}) (Admin, error) {
 	var user Admin
-	result := DB.DB.Where("a_id = ?",ID).First(&user)
+	result := DB.DB.Where("aid = ?",ID).First(&user)
 	user.Pswd = ""
 	return user, result.Error
 }

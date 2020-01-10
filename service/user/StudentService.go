@@ -15,5 +15,7 @@ func StudentService(c *gin.Context) *serialize.Response {
 		Where("u_id = ? and r_id = ?",uid,model.Student).
 		First(&user)
 
+	user.CompletionToOssUrl()
+
 	return serialize.Res(user,"")
 }

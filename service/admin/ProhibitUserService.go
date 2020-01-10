@@ -9,7 +9,7 @@ import (
 )
 
 type ProhibitUserService struct {
-	UID int  `json:"uid" form:"uid"`
+	UID int  `json:"uid" form:"uid" binding:"required"`
 }
 
 func (service *ProhibitUserService)ProhibitUser(c *gin.Context)*serialize.Response{

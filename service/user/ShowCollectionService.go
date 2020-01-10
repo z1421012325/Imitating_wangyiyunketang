@@ -5,7 +5,6 @@ import (
 	"demos/model"
 	"demos/serialize"
 	"demos/service"
-	"fmt"
 	"github.com/gin-gonic/gin"
 )
 
@@ -33,9 +32,9 @@ func ShowCollectionService(c *gin.Context)*serialize.Response{
 	DB.DB.Raw(sql,uid,start,size).Scan(&data.Result)
 	DB.DB.Model(&model.UseCollections{}).Where("u_id = ?",uid).Count(&data.Total)
 
-	fmt.Println(uid,start,size)
-	fmt.Println("\n")
-	fmt.Println(data)
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
 
 	return serialize.Res(data,"")
 }

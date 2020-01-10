@@ -8,12 +8,16 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+
+
+type NowCurriculumDataSubordinate struct {
+	model.Curriculums
+	Avg string 		`grom:"avg" json:"avg"`
+}
+
 type NowCurriculumData struct {
-	Result []struct{
-		model.Curriculums
-		Avg string 		`grom:"avg" json:"avg"`
-	}
-	Total int
+	Result []NowCurriculumDataSubordinate		`json:"result"`
+	Total int									`json:"total"`
 }
 
 func NowCurriculumService(c *gin.Context) *serialize.Response{
@@ -21,7 +25,7 @@ func NowCurriculumService(c *gin.Context) *serialize.Response{
 	start,end := service.PagingQuery(c)
 
 	sql := " select " +
-				"c.c_id,c.u_id,c.c_name,c.price,c.create_at,avg(cc.number) as avg " +
+				"c.c_id,c.u_id,c.c_name,c.price,c.c_image,c.create_at,avg(cc.number) as avg " +
 			"from " +
 				"curriculum_comments as cc join curriculums as c " +
 			"on " +
@@ -33,9 +37,13 @@ func NowCurriculumService(c *gin.Context) *serialize.Response{
 			"limit " +
 				"?,?"
 
-	var now NowCurriculumData
-	DB.DB.Raw(sql,uid,start,end).Scan(&now.Result)
-	DB.DB.Model(&model.Curriculums{}).Where("u_id = ? and delete_at is null",uid).Count(&now.Total)
+	var data NowCurriculumData
+	DB.DB.Raw(sql,uid,start,end).Scan(&data.Result)
+	DB.DB.Model(&model.Curriculums{}).Where("u_id = ? and delete_at is null",uid).Count(&data.Total)
 
-	return serialize.Res(now,"")
+	for _,data := range data.Result{
+		data.CompletionToOssUrl()
+	}
+
+	return serialize.Res(data,"")
 }
