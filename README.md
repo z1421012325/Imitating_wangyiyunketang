@@ -214,7 +214,9 @@ Foreign key (c_id) references curriculums(c_id)
 
 # 编译
 windows 下编译                  go bulid main.go 
+
 windows 下编译为liunx环境应用     .\liunxCompile.bat
+
 liunx   下编译                  go bulid main.go 
 
 
